@@ -1,0 +1,155 @@
+Original Article --> Get started with Django Part 1: Build a Portfolio app.
+By Jasmine Finer
+Original Link --> https://realpython.com/get-started-with-django-1/
+Github Link --> https://github.com/realpython/materials/tree/master/rp-portfolio
+
+Django is a fully featured Python Web Framework that can be used to build complex web applications.
+
+In this tutorial we will learn Django by example.
+By the end of this tutorial we will be familiar with,
+ - Understand what is Django.
+ - Understand the architecture of a Django site and how it differs from other frameworks.
+ - Set up a new Django Project and app.
+ - Build a personal Portfolio app with Django.
+
+----------------------------------------------
+The structure of a Django app
+----------------------------------------------
+
+A Django website consists of a single project that is split into separate apps.
+The idea being each app handles a self contained function that the site needs to perform.
+For example in the case of instagram,
+    - User Management (login, logout, register and so on).
+    - The image feed (Uploading, Editing and Displaying images).
+    - Private Messaging (Private messages between users and notifications).
+
+These are each separate pieces of functionality, so if this were a Django site, then each piece of
+functionality should be a different Django app residing in a single Django Project.
+
+
+The Django project contains some configurations that apply to the whole project.
+such as project settings, urls, shared templates and static files.
+Each application can have its own database and has its own functions to control how the data is diplayed via HTML.
+
+Each application has its own urls as well as its own HTML template and static files such as JS and CSS.
+
+Django apps are structured so that there is a separation of logic. It supports the Model View Controller Pattern.
+The basic principle is that in each application there are three separate files that handle the three main pieces
+of logic separately.
+    - Model: defines the data structure. This is usually the database and is the base layer to an application.
+    - View: displayes some or all of the data to the user with HTML and CSS.
+    - Controller: Handles how the database and the views interact.
+
+In Django the architecture is slightly different.
+Django handles the Controller part itself. And hence no need to define how the database and the views interact.
+
+This model us called Model-View-Template Pattern.
+All we need to do is add some URL configurations to map the VIEWS to, and Django handles the rest.
+
+So in summary,
+
+A Django site starts off as a project and is built up with a number of applications that each
+handle different functionality.
+Each app follows the Model-View-Template Pattern.
+Now let's have a look at what we will be building.
+
+-----------------------------------------
+What we'll be building
+-----------------------------------------
+
+In this tutorial an application will be build with the following features,
+    - A fully functioning blog (create, update and delete blog posts and sort based on categories; and users will be able to leave comments on posts).
+    - A Portfolio of your work (showcase previous projects in a gallery with clickable links to completed projects)
+
+We will not use any external libraries but only Bootstrap4 styling in the templates.
+
+
+-------------------------------
+Let's Get started
+-------------------------------
+Only prompt commands are stated here. Rest in Project Files.
+
+Run the following command, This will create a new folder containig necessary files to start our project.
+
+"""
+django-admin startproject personal_portfolio
+"""
+
+Once file structure sets up, check if creation of project was successfull by running,
+
+"""
+python manage.py runserver
+"""
+
+-------------------------
+Let's create an app
+-------------------------
+
+We will create an app hello_world. Which we will later delete.
+But creating this step will teach a few tricks worth remembering about django
+
+To create the app run the following command.
+
+"""
+python manage.py startapp hello_world
+"""
+
+This will create another directory called hello_world with several configuration files.
+
+Once the app has been created we now have to install it by adding it in INSTALLED_APPS list
+present in the file personal_portfolio/settings.py
+
+Now we need to create a view for our newly installed app (basically a webpage.)
+-------------------------------------------------------------------------------
+Views in Django are basically a collection of functions or classes inside the views.py file in your app directory.
+Each function or class handles  the logic that gets processed each time a different URL is visited.
+
+Navigate to hello_world/views.py and write the code. [we here @1: create views.]
+
+def hello_world() is now a view function. It will render an html file called hello_world.html when called.
+
+The view function takes one argument called request which is an HttpRequestObject.
+This object is created whenever a page is loaded.
+
+It contains information about the request such as the method, which can take several values including GET and POST.
+
+Now that we have created a view function, we need to create the HTML template to display.
+render() looks for a template inside the templates folder within the app directory.
+
+create the folder and subsequently a file named hello_world.html inside it.
+
+Add some code to the html file.
+
+The final step is to hook up the URLs so that we can visit the page that was just created.
+
+Inside personal_portfolio/urls.py add commands to add urls. @1.2
+
+This looks for urls.py in the hello_world app folder and registers any URLs defined there.
+
+Let's now create the hello_world.urls module. as hello_world/urls.py
+
+
+Add code in it while importing path form django.urls as well as views from hello_world folder. @1.3
+
+Now restart the server and your new html view should be up for display.
+
+"""
+python manage.py runserver
+"""
+
+
+CONGRATULATIONS You just created your first Django APP.. Actually third... Huzzaaaahh!!!!
+
+ADD BOOTSTRAP to your APP!
+--------------------------
+
+
+
+
+
+
+
+
+
+
+
