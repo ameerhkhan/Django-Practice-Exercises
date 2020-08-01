@@ -72,13 +72,13 @@ Only prompt commands are stated here. Rest in Project Files.
 Run the following command, This will create a new folder containig necessary files to start our project.
 
 """
-django-admin startproject personal_portfolio
+    > django-admin startproject personal_portfolio
 """
 
 Once file structure sets up, check if creation of project was successfull by running,
 
 """
-python manage.py runserver
+    > python manage.py runserver
 """
 
 -------------------------
@@ -91,7 +91,7 @@ But creating this step will teach a few tricks worth remembering about django
 To create the app run the following command.
 
 """
-python manage.py startapp hello_world
+    > python manage.py startapp hello_world
 """
 
 This will create another directory called hello_world with several configuration files.
@@ -134,7 +134,7 @@ Add code in it while importing path form django.urls as well as views from hello
 Now restart the server and your new html view should be up for display.
 
 """
-python manage.py runserver
+    > python manage.py runserver
 """
 
 
@@ -142,6 +142,234 @@ CONGRATULATIONS You just created your first Django APP.. Actually third... Huzza
 
 ADD BOOTSTRAP to your APP!
 --------------------------
+
+Bootstrap will allow us to add styling to our project without much effort.
+Before we get started with bootstrap, we will make a base template that we can import to each
+subsequent view.
+
+This template is where we will add the bootstrap style imports.
+
+Create a directory inside personal_portfolio called templates and add a new file named base.html
+
+This additional template file will be used in every other application in this project.
+
+This is just to save from repeated coding in defining templates for all applications.
+
+add code to this new file. @2.0
+
+Now in the hello_world template html we can just extend this base template by writing code. @2.1
+
+What happens here is that any HTML inside the page_content block gets added inside the same block in base.html
+
+To install bootstrap in our app we will use bootstrap CDN which is fairly easy and only requires a few lines
+of code to be added into our base.html file.
+
+Before we can see our new styled application we need to tell our Django project that base.html exists.
+
+We do this by updating Templates[Dirs] in personal_portfolio/settings.py
+
+---------------------------------------------------
+Let's Now Showcase our projects,
+---------------------------------------------------
+
+Let's show off projects that we have created.
+But first we need to delete our hello_world app. To do this, simply delete its folder and remove it
+from INSTALLED_APPS in settings.py
+
+Finally remove the URL path created in personal_portfolio/urls.py
+
+
+Now on to the PROJECTS APP
+
+Run the following command in the command line.
+
+"""
+    > python manage.py startapp projects
+"""
+
+Add your new project into INSTALLED_APPS in personal_portfolio/settings.py
+
+Now we are going to be building a Project model.
+
+Projects App: Model.
+---------------------
+Django has builtin Object Relational Mapper (ORM) which can substitute writing SQL to get data.
+An ORM is a program that allows you to create classes that correspond to database tables.
+Class attrubutes correspond to columns.
+And instances of classes correspond to rows in the database.
+
+So instead of learning a whole new language to create our database and its tables, we can simply write
+some Python classes.
+
+The classes we build that represent database tables are referred to as models.
+They live in models.py module of each Django app.
+
+In our projects app we will only need one table to store the different projects we'll display to the user.
+That means we need to create only one model in models.py
+
+The model we'll create is called Project and will have the following fields.
+
+    - title : Short string field to hold the name of the project.
+    - description : Will be a larger string field.
+    - technology : Will be a string field with limited choices.
+    - image : Will be an image field that holds the file path where the image is stored.
+
+To create this model, we'll create a new class in projects/models.py @3.0
+
+Django comes with many builtin model field types. All of them can be found at,
+https://docs.djangoproject.com/en/3.0/ref/models/fields/
+
+Now we need to create a Database with Django. For this and all other small applications we can use SQLite which
+is built in in Python/Django. For larger projects it is advised to use other databases that use SQL Languages
+such as PostgreSQL, MySQL etcetera with Django ORM.
+
+Database Generation:
+--------------------
+To start the process of creating a database, we need to create a migration.
+A migration is a file containing a Migration class with rules telling Django what changes need to be
+made to the database.
+
+To create the migration, type the following command in the console, making sure you're in upper personal_portfolio directory.
+
+"""
+    > python manage.py makemigrations projects.
+"""
+
+You should see a file created in project/migrations named 0001_initial.py.
+This signifies generation of migrations.
+
+Now that we have created a migration file, we need to apply the migrations set out in the migrations file.
+and create the database using the migrate command.
+
+"""
+    > python manage.py migrate projects
+"""
+
+Also note if we run makemigrations and migrate without the projects flag, then all the migrations for all the default
+models in your Django projects will be created and applied. This is not a problem.
+
+Now our project has a database. We can now create rows defining our projects to show on our portfolio site.
+
+To create instances of our Project class we're going to have to use the Django shell.
+Django shell is similar to Python shell but allows you to access the database and create entries.
+
+To access the Django shell, use,
+
+"""
+    > python manage.py shell
+"""
+
+Following is a list of command used in the shell,
+    :::>><<:::
+    > from projects.models import Project
+    > p1 = Project(
+    ... title='My First Project',
+    ... description='A web development Project',
+    ... technology='Django',
+    ... image='img/project1.png'
+    ... )
+    > p1.save()
+    :::>><<:::
+
+In the same way generate as many projects as you wish.
+
+CONGRATULATIONS!! Now we will define views.py in our projects app to show the world our Projects.
+
+Project App: Views
+------------------
+
+Now we have created the projects, we need to define the views in order to display our projects.
+Basically to send the data from our database to the HTML Templates.
+
+In the projects app we will create two different views.
+    1- An index views that shows a snippet of information on each project.
+    2- A detail views that shows more information on a particular topic.
+
+Let's start with the index view.
+Inside projects/views.py we'll need to import the Projects class from models.py and create a function
+project_index() that renders a template called project_index.html.
+
+In the body of this function we'll make a Django ORM query to select all object in the project table. @4.0
+
+Next we need to create project_detail() function in the same file which along with the request will take another
+argument which will be the id of the project.
+
+Otherwise the logic is similar to project_index() function. @4.1
+
+Once view functions are created, we need to hook them up to URLs.
+We'll start by creating a file projects/urls.py to hold the URL configuration for the app.
+This file should contain the following code. @4.3
+
+With those now set up we now need to enter this new information into personal_portfolio/urls.py as well to
+include our projects app. @4.4
+
+Now we should have our projects at localhost:8000/projects as well as ...:8000/projects/1... But wait!
+
+We have yet to create new HTML templates for our projects!!
+
+Let's get on with it then,
+
+
+
+Projects App: Templates,
+------------------------
+Our final step in the projects app is to create two new templates.
+    1- The project_index template.
+    2- The project_detail template.
+
+As we've added Bootstrap styles to our application, we can use some pre-styled components to make the views
+look nice.
+
+Let's start with project_index.
+
+For the project_index template we will create a grid of Bootstrap cards, with each card displaying details of
+the project. Ofcourse we cannot hardcode the number of projects as they may be increasing all the time.
+
+We are going to use a feature of the Django Template Engine: FOR LOOPS!!
+
+Hence using this feature we'll be able to loop through all our projects without hardcoding the actual number.
+
+Now we need to create a file projects/templates/project_index.html and add the code. @5.0
+
+Great! We now have a gallery.
+
+Since comments are not easy in html for understanding we are going to put them here.
+
+{% load static %} --> to include static files such as images.
+
+Django automatically registers static files that are stored in a separate folder named static.
+So we need to create a new folder projects/static/img and store our images in this folder.
+
+With the projects_index complete it is time now to create project_detail.html. With code. @5.1
+
+Hurray! We have created a projects showcase as well as a detailed page.
+
+Now on to the blog
+
+-------------------------------------------
+BLOG APP:
+-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
