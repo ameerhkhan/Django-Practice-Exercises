@@ -347,10 +347,133 @@ Hurray! We have created a projects showcase as well as a detailed page.
 Now on to the blog
 
 -------------------------------------------
-BLOG APP:
+6.0 - BLOG APP:
 -------------------------------------------
 
 Share your knowledge with a blog.
+
+
+In this section we are going to build a fully functioning blog that will allow us to perform the following tasks,
+- Create, Update and Delete blog posts.
+- Display blog posts to the user as either an index view or a detailed view.
+- Assign categories to post.
+- Allow users to comment on posts.
+
+We'll also learn Django Admin Interface, which is where we'll create, update and delete posts and categories.
+
+Let's start,
+
+    > python manage.py startapp blog
+
+add the "blog" app to INSTALLED_APPS in settings.py
+
+
+Blog App: Models:
+-----------------
+The models.py file in this app is much more complicated than in the projects app.
+
+We are going to need 3 separate database tables for the blog,
+- 1 - Post
+- 2 - Category
+- 3 - Comment
+
+These tables need to be related to one another. This is made easier because Django models come with 
+fields specifically for this purpose.
+
+Below is the code for the category and post models. @6.0
+
+Once we have created the models, we can create the migration files with makemigrations
+
+    > python manage.py makemigrations blog
+
+Then migrate,
+
+    > python manage.py migrate
+
+Now instead of using the command line, we will use the Django Admin.
+
+Blog Admin Django App:
+----------------------
+
+Admin allows you to create, update and delete instances of your model classes and provide a nice interface for doing so.
+
+Before we can access the admin, we need to add ourselves as a superuser. This is why, in the previous section,
+we applied migrations project-wide.
+as opposed to just the app.
+
+Django comes with built-in user models and a user-management-system that will allow to login to the admin.
+
+To start off, add yourself as superuser using the following command.
+
+    > python manage.py createsuperuser
+
+Add the details. and voila!!
+
+The user and Groups model should appear. But you'll notice there's no reference to the models you just created.
+That's because we need to register them inside the admin.
+
+In the blog directory open up admin.py and type the code.
+
+@6.1
+
+BLOG APP: VIEWS!
+-----------------
+
+You will need to create three view functions in the views.py file in the blog directory.
+
+- blog_index will display a list of posts.
+- blog_detail will display the full posts as well as the comments and a form to allow users to create new comments.
+- blog_category will be similar to blog_index, but the posts viewed will only be of a specific category chosen by the users.
+
+@6.2
+
+
+Forms
+------
+To add a form to the page, you'll need to create another file in the blog directory named forms.py
+(blog/forms.py)
+Django forms are very similar to models.
+A form consists of a class where the class attributes are form fields.
+Django comes with some built in form fields that you can use to quickly create the form you need.
+
+For this form, use the code, 
+@6.3
+
+Once we have created the comment from the form, you'll need to save it using save(). Then query the database
+for all the comments assigned to the given post.
+This is done in the view function.
+@6.4
+
+In case of errors Django forms module will output some errors, which can be displayed to the user.
+Read more about it here,
+https://docs.djangoproject.com/en/2.1/topics/forms/#rendering-form-error-messages
+
+
+The final thing we need to do before we create the templates and actually see this blog up and running is to 
+hook up the URLs. We'll need to create another urls.py file inside blog/ and add the URLs for three views.
+@6.5
+
+Now add blog.urls into the main personal_portfolio (main) folder.
+@6.6
+We finally have, 
+blog/ all the views.
+
+Now we need to create the templates.
+
+Blog: Templates
+---------------
+The final piece of our blog app is the templates. By the end we'll have a fully functioning BLOG!!!
+
+Create new folder in blog called templates. blog/template
+
+We'll use a for loop for all the blogs available.
+For each post, you'll display the title and a snippet of the body.
+We'll extend personal_portfolio/templates/base.html which contains our styling/ formatting as well as our navigation bar.
+
+Next we create another HTML file blog/templates/blog_category.html
+Should be identical to blog_index.html.
+
+The last template to create is the blog_detail template.
 
 
 
