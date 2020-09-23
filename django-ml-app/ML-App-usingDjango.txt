@@ -1,0 +1,34 @@
+Taken from Django Machine Learning app
+https://www.deploymachinelearning.com/#train-ml-algorithms
+
+https://towardsdatascience.com/creating-a-machine-learning-based-web-application-using-django-5444e0053a09
+
+
+
+We are using djangoML conda virtual environment for this job.
+
+Execute the following in the virtual env.
+
+    > pip install -U scikit-learn
+    > pip install django
+    > pip install --upgrade pandas
+
+    > django-admin startproject iris_model
+
+    # Check if creation was successfull,
+    > python manage.py runserver
+
+    # Create new app for Prediction
+    > python manage.py startapp predictor
+
+Make a separate file in a separate folder which does all the Machine Learning and stuff.
+
+Save your machine learning model using pickle or joblib or something similar.
+get those saved files into the main project/app
+
+Import a getPredictions function which uses the saved pickle file to predict answers..
+
+Now make the templates.
+
+
+

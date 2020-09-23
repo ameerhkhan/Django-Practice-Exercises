@@ -1,0 +1,50 @@
+<!-- HOME PAGE -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <h1>Titanic Survival Prediction</h1>
+    <form action="{% url 'result' %}">
+        <!-- The above means to take the user to the results page when form is filled/ submitted. -->
+        {% csrf_token %}
+        <!-- Cross-Site Reference Forgery Token -> To make data handling in Django more secure.
+        Should always be the first line inside form tags. -->
+
+        <p>Passenger Class: (0, 1, 2)</p>
+        <input type="text" name="pclass">
+        <br>
+        <p>Sex: (male, female)</p>
+        <input type="text" name="sex">
+        <br>
+        <p>Age: </p>
+        <input type="text" name="age">
+        <p>Sibsp: (0, 1)</p>
+        <input type="text" name="sibsp">
+        <br>
+        <p>Parch: (0, 1)</p>
+        <input type="text" name="parch">
+        <br>
+        <p>Fare: (1 -> 20)</p>
+        <input type="text" name="fare">
+        <br>
+        <p>Embark Category C: (0, 1)</p>
+        <input type="text" name="embC">
+        <br>
+        <p>Embark Category Q: (0, 1)</p>
+        <input type="text" name="embQ">
+        <br>
+        <p>Embark Category S: (0, 1)</p>
+        <input type="text" name="embS">
+        <br>
+
+        <input type="submit" value='Get Predictions'>
+
+    </form>
+</body>
+
+</html>
