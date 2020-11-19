@@ -37,7 +37,7 @@ Django apps are structured so that there is a separation of logic. It supports t
 The basic principle is that in each application there are three separate files that handle the three main pieces
 of logic separately.
     - Model: defines the data structure. This is usually the database and is the base layer to an application.
-    - View: displayes some or all of the data to the user with HTML and CSS.
+    - View: displays some or all of the data to the user with HTML and CSS.
     - Controller: Handles how the database and the views interact.
 
 In Django the architecture is slightly different.
@@ -106,7 +106,7 @@ Each function or class handles  the logic that gets processed each time a differ
 
 Navigate to hello_world/views.py and write the code. [we here @1: create views.]
 
-def hello_world() is now a view function. It will render an html file called hello_world.html when called.
+def hello_world() is now a "view function". It will render an html file called hello_world.html when called.
 
 The view function takes one argument called request which is an HttpRequestObject.
 This object is created whenever a page is loaded.

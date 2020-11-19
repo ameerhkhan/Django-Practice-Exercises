@@ -1,0 +1,35 @@
+<!-- HOME PAGE -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <h1>Flower Classification</h1>
+    <form action="{% url 'result' %}">
+        <!-- The above means to take the user to the results page when form is filled/ submitted. -->
+        {% csrf_token %}
+        <!-- Cross-Site Reference Forgery Token -> To make data handling in Django more secure.
+        Should always be the first line inside form tags. -->
+
+        <p>Sepal Length</p>
+        <input type="text" name="sep_len">
+        <br>
+        <p>Sepal Width</p>
+        <input type="text" name="sep_width">
+        <br>
+        <p>Petal Length</p>
+        <input type="text" name="pet_len">
+        <p>Petal Width</p>
+        <input type="text" name="pet_width">
+        <br>
+
+        <input type="submit" value='Get Predictions'>
+
+    </form>
+</body>
+
+</html>
