@@ -137,7 +137,8 @@ admin.site.register(Question, QuestionAdmin)
 
 """
 
-The first element of each tuple in fieldsets is the title of the fieldset. Here’s what our form looks like now:
+The first element of each tuple in fieldsets is the title of the fieldset. 
+Here’s what our form looks like now:
 
         https://docs.djangoproject.com/en/3.0/_images/admin08t.png
 
@@ -238,7 +239,8 @@ class QuestionAdmin(admin.ModelAdmin):
 You can click on the column headers to sort by 
 those values – except in the case of the was_published_recently header.
 
-Let's change the heading for was_published_recently which is basically the same name but without the underscores.
+Let's change the heading for was_published_recently which is basically the same name but 
+without the underscores.
 
 polls/models.py"""
 
@@ -343,16 +345,22 @@ within the default Django admin template directory in the source code
 of Django itself (django/contrib/admin/templates) into that directory.
 
 
-If you have difficulty finding where the Django source files are located on your system, run the following command:
+If you have difficulty finding where the Django source files are located on your system, 
+run the following command:
 
     > py -c "import django; print(django.__path__)"
 
 
-Then, edit the file and replace {{ site_header|default:_('Django administration') }} (including the curly braces) 
+Then, edit the file and replace {{ site_header|default:_('Django administration') }} 
+(including the curly braces) 
 with your own site’s name as you see fit. 
 You should end up with a section of code like:
 
-In an actual project, you would probably use the django.contrib.admin.AdminSite.site_header attribute to more easily make this particular customization.
+In an actual project, you would probably use the 
+
+django.contrib.admin.AdminSite.site_header 
+
+attribute to more easily make this particular customization.
 
 Note that any of Django’s default admin templates can be overridden. To override a template, 
 do the same thing you did with base_site.html – copy it from the default directory 
@@ -386,22 +394,3 @@ previous section – copy it from the default directory to your custom template 
 Edit the file, and you’ll see it uses a template variable called app_list. 
 That variable contains every installed Django app. Instead of using that, 
 you can hard-code links to object-specific admin pages in whatever way you think is best.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

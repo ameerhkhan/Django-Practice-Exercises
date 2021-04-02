@@ -252,9 +252,12 @@ Questions whose pub_date is less than or equal to - that is, earlier than or equ
 Testing our new view
 =======================
 
-Now you can satisfy yourself that this behaves as expected by firing up runserver, loading the site in your browser, creating Questions with dates in the past and future, and checking that only those that have been published are listed. 
+Now you can satisfy yourself that this behaves as expected by firing up runserver, 
+loading the site in your browser, creating Questions with dates in the past and future, 
+and checking that only those that have been published are listed. 
 
-You don’t want to have to do that every single time you make any change that might affect this - so let’s also create a test, based on our shell session above.
+You don’t want to have to do that every single time you make any change that might affect this - 
+so let’s also create a test, based on our shell session above.
 
 Add the following to polls/tests.py:
 
@@ -388,24 +391,33 @@ class QuestionDetailViewTests(TestCase):
 Ideas for more tests
 ======================
 
-We ought to add a similar get_queryset method to ResultsView and create a new test class for that view. It’ll be very similar to what we have just created; in fact there will be a lot of repetition.
+We ought to add a similar get_queryset method to ResultsView and create a new test class for 
+that view. It’ll be very similar to what we have just created; in fact there will be a lot of repetition.
 
-We could also improve our application in other ways, adding tests along the way. For example, it’s silly that Questions can be published on the site that have no Choices. So, our views could check for this, and exclude such Questions. Our tests would create a Question without Choices and then test that it’s not published, as well as create a similar Question with Choices, and test that it is published.
+We could also improve our application in other ways, adding tests along the way. 
+For example, it’s silly that Questions can be published on the site that have no Choices. 
+So, our views could check for this, and exclude such Questions. Our tests would create a 
+Question without Choices and then test that it’s not published, as well as create a similar 
+Question with Choices, and test that it is published.
 
-Perhaps logged-in admin users should be allowed to see unpublished Questions, but not ordinary visitors. Again: whatever needs to be added to the software to accomplish this should be accompanied by a test, whether you write the test first and then make the code pass the test, or work out the logic in your code first and then write a test to prove it.
+Perhaps logged-in admin users should be allowed to see unpublished Questions, 
+but not ordinary visitors. Again: whatever needs to be added to the software to accomplish 
+this should be accompanied by a test, whether you write the test first and then make the code 
+pass the test, or work out the logic in your code first and then write a test to prove it.
 
 At a certain point you are bound to look at your tests and wonder whether your code is 
 suffering from test bloat, which brings us to:
 
 When testing, more is better
 
-As long as your tests are sensibly arranged, they won’t become unmanageable. Good rules-of-thumb include having:
+As long as your tests are sensibly arranged, they won’t become unmanageable. 
+Good rules-of-thumb include having:
 
     a separate TestClass for each model or view
     a separate test method for each set of conditions you want to test
     test method names that describe their function
 
-This tutorial only introduces some of the basics of testing. There’s a great deal more you can do, and a number of very useful tools at your disposal to achieve some very clever things.
+This tutorial only introduces some of the basics of testing. There’s a great deal more you 
+can do, and a number of very useful tools at your disposal to achieve some very clever things.
 
 Django includes LiveServerTestCase to facilitate integration with tools like Selenium.
-
